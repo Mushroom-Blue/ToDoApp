@@ -5,10 +5,65 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ToDoApp</title>
-    <link href="./styles/css/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+    <link href="./styles/css/styles.css" rel="stylesheet"/>
+    <script defer src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.min.js" integrity="sha384-PsUw7Xwds7x08Ew3exXhqzbhuEYmA2xnwc8BuD6SEr+UmEHlX8/MCltYEodzWA4u" crossorigin="anonymous"></script>
     <script defer src="./main.js"></script>
 </head>
 <body>
-    
+    <div class="pageContainer">
+        <div class="headerContainer">
+            <div class="headerTitle">To Do App</div>
+        </div>
+        <div class="bodyContainer">
+            <div class="listContainer">
+                <div class="listTitle">Lists</div>
+                <div id="listOfLists"></div>
+                <button type="button" class="btn btn-primary addNewList" data-bs-toggle="modal" data-bs-target="#toDoModal">Add New List</button>
+            </div>
+            <div class="taskContainer">
+                <div class="tasksTitle">Tasks</div>
+                <div id="listOfTasks"></div>
+                <div class="taskBtn">
+                    <button type="button" class="btn btn-primary addNewTask" data-bs-toggle="modal" data-bs-target="#taskModal">Add New Task</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="toDoModal" class="modal" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Add New List</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <input id="listCreation" placeholder="Enter Your New List Here!"/>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" onclick="createList()" data-bs-dismiss="modal">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="taskModal" class="modal" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Add New Task</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <input id="taskCreation" placeholder="Enter Your Tasks Here!"/>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
 </body>
 </html>
