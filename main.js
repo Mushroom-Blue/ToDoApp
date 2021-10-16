@@ -14,10 +14,11 @@ function createList() {
         allLists.push({
             "listID" : id,
             "listName" : listName,
-            "taskList" : {},
+            "taskList" : [],
         })
         console.log(allLists)
     }
+    document.getElementById("listCreation").value = "";
     localStorageSave();
     render();
 }
@@ -27,17 +28,21 @@ function createTask() {
     let taskName = document.getElementById("taskCreation").value;
     if (taskName == '') {
         return;
+    } else if (selectedList == null) {
+        return
     } else {
         allLists.forEach(list => {
-            if (list.listID === selectedList.id) {
-                list.taskList[{
+            if (list.listID == selectedList.id) {
+                list.taskList.push({
                     "taskID" : id,
-                    "taskName" : taskName
-                }]
+                    "taskName" : taskName,
+                    "isComplete" : false,
+                })
+                taskRender(list.listID);
             }
         })
     }
-    console.log(allLists)
+    document.getElementById("taskCreation").value = "";
 }
 
 function render() {
@@ -52,6 +57,22 @@ function render() {
     document.getElementById("listOfLists").innerHTML = listHTML;
 }
 
+function taskRender(id) {
+    let taskHTML = "";
+    allLists.forEach(list => {
+        if (list.listID == id) {
+            list.taskList.forEach(task => {
+                taskHTML += `
+                    <div id="${task.taskID}" class="eachList" onclick="selectList(${task.taskID})">
+                        <div class="listName">${task.taskName}</div>
+                    </div>
+                `
+            })
+        }
+    });
+    document.getElementById("listOfTasks").innerHTML = taskHTML;
+}
+
 function selectList(id) {
     allLists.forEach(list => {
         if (list.listID === id) {
@@ -62,7 +83,7 @@ function selectList(id) {
             selectedList.classList.add("activeList");
         }
     })
-    console.log(selectedList.id);
+    taskRender(id)
 }
 
 function localStorageSave() {
