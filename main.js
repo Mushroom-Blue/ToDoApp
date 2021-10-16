@@ -25,7 +25,7 @@ function render() {
     let listHTML = "";
     allLists.forEach(list => {
         listHTML += `
-            <div class="eachList" onclick="selectList(${list.listID})">
+            <div id="${list.listID}" class="eachList" onclick="selectList(${list.listID})">
                 <div class="listName">${list.listName}</div>
             </div>
         `
@@ -33,8 +33,14 @@ function render() {
     document.getElementById("listOfLists").innerHTML = listHTML;
 }
 
-function selectList() {
-    
+function selectList(id) {
+    let selectedList;
+    allLists.forEach(list => {
+        if (list.listID === id) {
+            selectedList = document.getElementById(id);
+            selectedList.classList.add("activeList");
+        }
+    })
 }
 
 function localStorageSave() {
