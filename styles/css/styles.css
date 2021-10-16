@@ -44,6 +44,14 @@ body {
   text-decoration: underline;
 }
 
+.eachList {
+  margin: 25px;
+}
+
+.activeList {
+  background-color: green;
+}
+
 .taskContainer {
   display: flex;
   flex-direction: column;

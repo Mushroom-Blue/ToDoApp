@@ -1,4 +1,5 @@
 let allLists = [];
+let selectedList;
 
 function randomID() {
     return (Math.random() + Math.random()) * 1000;
@@ -21,6 +22,24 @@ function createList() {
     render();
 }
 
+function createTask() {
+    let id = randomID();
+    let taskName = document.getElementById("taskCreation").value;
+    if (taskName == '') {
+        return;
+    } else {
+        allLists.forEach(list => {
+            if (list.listID === selectedList.id) {
+                list.taskList[{
+                    "taskID" : id,
+                    "taskName" : taskName
+                }]
+            }
+        })
+    }
+    console.log(allLists)
+}
+
 function render() {
     let listHTML = "";
     allLists.forEach(list => {
@@ -34,13 +53,16 @@ function render() {
 }
 
 function selectList(id) {
-    let selectedList;
     allLists.forEach(list => {
         if (list.listID === id) {
             selectedList = document.getElementById(id);
+            [...document.getElementsByClassName("activeList")].forEach(element => {
+                element.classList.remove("activeList");
+            })
             selectedList.classList.add("activeList");
         }
     })
+    console.log(selectedList.id);
 }
 
 function localStorageSave() {
