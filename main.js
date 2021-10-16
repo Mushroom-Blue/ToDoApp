@@ -25,12 +25,16 @@ function render() {
     let listHTML = "";
     allLists.forEach(list => {
         listHTML += `
-            <div class="eachList">
+            <div class="eachList" onclick="selectList(${list.listID})">
                 <div class="listName">${list.listName}</div>
             </div>
         `
     });
     document.getElementById("listOfLists").innerHTML = listHTML;
+}
+
+function selectList() {
+    
 }
 
 function localStorageSave() {
