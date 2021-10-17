@@ -1,5 +1,6 @@
 let allLists = [];
 let selectedList;
+let editTaskID;
 
 function randomID() {
     return (Math.random() + Math.random()) * 1000;
@@ -16,7 +17,6 @@ function createList() {
             "listName" : listName,
             "taskList" : [],
         })
-        console.log(allLists)
     }
     document.getElementById("listCreation").value = "";
     localStorageSave();
@@ -86,21 +86,23 @@ function taskRender(id) {
                 if (task.isComplete == true) {
                     taskHTML += `
                         <div id="${task.taskID}" class="eachList completeTask">
-                            <div class="completeCircleFilled" onclick="toggleComplete(event)"></div>
+                            <div class="completeCircleFilled" onclick="toggleComplete(event, ${id})"></div>
                             <div class="listName">${task.taskName}</div>
                             <div class="trashCan" onclick="deleteTask(event)">
                                 <i class="fas fa-trash-alt"></i>
                             </div>
+                            <button type="button" class="btn btn-primary editBtn" data-bs-toggle="modal" data-bs-target="#editModal" onclick="getTaskID(${task.taskID})">Edit</button>
                         </div>
                     `
                 } else {
                     taskHTML += `
                         <div id="${task.taskID}" class="eachList">
-                            <div class="completeCircle" onclick="toggleComplete(event)"></div>
+                            <div class="completeCircle" onclick="toggleComplete(event, ${id})"></div>
                             <div class="listName">${task.taskName}</div>
                             <div class="trashCan" onclick="deleteTask(event)">
                                 <i class="fas fa-trash-alt"></i>
                             </div>
+                            <button type="button" class="btn btn-primary editBtn" data-bs-toggle="modal" data-bs-target="#editModal" onclick="getTaskID(${task.taskID})">Edit</button>
                         </div>
                     `
                 }
@@ -108,6 +110,26 @@ function taskRender(id) {
         }
     });
     document.getElementById("listOfTasks").innerHTML = taskHTML;
+}
+
+function getTaskID(id) {
+    editTaskID = id;
+}
+
+function editTasks() {
+    let newTask = document.getElementById("taskEdit").value;
+    allLists.forEach(list => {
+        if(list.listID == selectedList.id){
+            list.taskList.forEach(task => {
+                if(task.taskID == editTaskID){
+                    task.taskName = newTask;
+                }
+            });
+            localStorageSave();
+            taskRender(list.listID)
+        }
+    })
+    editTaskID = undefined;
 }
 
 function deleteTask(event) {
@@ -127,16 +149,35 @@ function deleteTask(event) {
     })
 }
 
-function toggleComplete(event) {
+function toggleComplete(event, id) {
     let node = event.target;
     let taskNode = node.parentNode;
     allLists.forEach(list => {
-        list.taskList.forEach(task => {
-            if (task.taskID == taskNode.id){
-                task.isComplete = !task.isComplete;
+        if (list.listID == id) {
+            list.taskList.forEach(task => {
+                if (task.taskID == taskNode.id){
+                    task.isComplete = !task.isComplete;
+                }
+            })
+            taskRender(list.listID)
+        }
+    })
+}
+
+function clearAllTasks() {
+    allLists.forEach(list => {
+        if (list.listID == selectedList.id){
+            for (let i = 0; i < list.taskList.length; i++) {
+                list.taskList.forEach(task => {
+                    if (task.isComplete == true){
+                        let tbdTask = list.taskList.indexOf(task);
+                        list.taskList.splice(tbdTask, 1);
+                    }
+                })
             }
-        })
-        taskRender(list.listID)
+            localStorageSave();
+            taskRender(list.listID);
+        }
     })
 }
 

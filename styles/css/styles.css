@@ -46,10 +46,12 @@ body {
 
 .eachList {
   display: flex;
+  margin-bottom: 20px;
+  align-items: center;
 }
 
 .activeList {
-  background-color: green;
+  background-color: lightblue;
 }
 
 .taskContainer {
@@ -95,6 +97,16 @@ body {
 
 .trashCanList {
   margin: 0 15px;
+}
+
+.trashCan {
+  margin: 0 15px;
+}
+
+.editBtn {
+  height: 35px;
+  width: 50px;
+  font-size: 16px;
 }
 
 /*# sourceMappingURL=styles.css.map */

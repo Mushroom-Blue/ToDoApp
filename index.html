@@ -24,7 +24,12 @@
                 <button type="button" class="btn btn-primary addNewList" data-bs-toggle="modal" data-bs-target="#toDoModal">Add New List</button>
             </div>
             <div class="taskContainer">
+              <div>
                 <div class="tasksTitle">Tasks</div>
+                <div class="dltTaskBtn">
+                  <button type="button" class="btn btn-primary clearTaskBtn" onclick="clearAllTasks()">Clear Completed Tasks</button>
+                </div>
+              </div>
                 <div id="listOfTasks"></div>
                 <div class="taskBtn">
                     <button type="button" class="btn btn-primary addNewTask" data-bs-toggle="modal" data-bs-target="#taskModal">Add New Task</button>
@@ -62,6 +67,23 @@
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
               <button type="button" class="btn btn-primary" onclick="createTask()" data-bs-dismiss="modal">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="editModal" class="modal" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Edit Task</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <input id="taskEdit" placeholder="Edit Your Tasks Here!"/>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" onclick="editTasks()" data-bs-dismiss="modal">Save changes</button>
             </div>
           </div>
         </div>
