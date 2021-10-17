@@ -52,6 +52,9 @@ function render() {
         listHTML += `
             <div id="${list.listID}" class="eachList" onclick="selectList(${list.listID})">
                 <div class="listName">${list.listName}</div>
+                <div class="trashCan" onclick="">
+                    <i class="fas fa-trash-alt"></i>
+                </div>
             </div>
         `
     });
@@ -68,6 +71,9 @@ function taskRender(id) {
                         <div id="${task.taskID}" class="eachList completeTask">
                             <div class="completeCircleFilled" onclick="toggleComplete(event)"></div>
                             <div class="listName">${task.taskName}</div>
+                            <div class="trashCan" onclick="">
+                                <i class="fas fa-trash-alt"></i>
+                            </div>
                         </div>
                     `
                 } else {
@@ -75,6 +81,9 @@ function taskRender(id) {
                         <div id="${task.taskID}" class="eachList">
                             <div class="completeCircle" onclick="toggleComplete(event)"></div>
                             <div class="listName">${task.taskName}</div>
+                            <div class="trashCan" onclick="">
+                                <i class="fas fa-trash-alt"></i>
+                            </div>
                         </div>
                     `
                 }
