@@ -45,6 +45,7 @@ body {
 }
 
 .eachList {
+    display: flex;
     margin: 25px;
 }
 
@@ -70,4 +71,25 @@ body {
     width: 100%;
     display: flex;
     justify-content: flex-start;
+}
+
+.completeCircle {
+    height: 20px;
+    width: 20px;
+    border: 1px solid black;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.completeCircleFilled {
+    height: 20px;
+    width: 20px;
+    border: 1px solid black;
+    border-radius: 50%;
+    margin-right: 10px;
+    background-color: black;
+}
+
+.completeTask {
+    opacity: 0.5;
 }

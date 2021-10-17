@@ -42,6 +42,7 @@ function createTask() {
             }
         })
     }
+    localStorageSave();
     document.getElementById("taskCreation").value = "";
 }
 
@@ -62,15 +63,38 @@ function taskRender(id) {
     allLists.forEach(list => {
         if (list.listID == id) {
             list.taskList.forEach(task => {
-                taskHTML += `
-                    <div id="${task.taskID}" class="eachList" onclick="selectList(${task.taskID})">
-                        <div class="listName">${task.taskName}</div>
-                    </div>
-                `
+                if (task.isComplete == true) {
+                    taskHTML += `
+                        <div id="${task.taskID}" class="eachList completeTask">
+                            <div class="completeCircleFilled" onclick="toggleComplete(event)"></div>
+                            <div class="listName">${task.taskName}</div>
+                        </div>
+                    `
+                } else {
+                    taskHTML += `
+                        <div id="${task.taskID}" class="eachList">
+                            <div class="completeCircle" onclick="toggleComplete(event)"></div>
+                            <div class="listName">${task.taskName}</div>
+                        </div>
+                    `
+                }
             })
         }
     });
     document.getElementById("listOfTasks").innerHTML = taskHTML;
+}
+
+function toggleComplete(event) {
+    let node = event.target;
+    let taskNode = node.parentNode;
+    allLists.forEach(list => {
+        list.taskList.forEach(task => {
+            if (task.taskID == taskNode.id){
+                task.isComplete = !task.isComplete;
+            }
+        })
+        taskRender(list.listID)
+    })
 }
 
 function selectList(id) {
