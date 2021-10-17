@@ -46,7 +46,6 @@ body {
 
 .eachList {
   display: flex;
-  margin: 25px;
 }
 
 .activeList {
@@ -92,6 +91,10 @@ body {
 
 .completeTask {
   opacity: 0.5;
+}
+
+.trashCanList {
+  margin: 0 15px;
 }
 
 /*# sourceMappingURL=styles.css.map */

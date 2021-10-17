@@ -28,7 +28,7 @@ function createTask() {
     let taskName = document.getElementById("taskCreation").value;
     if (taskName == '') {
         return;
-    } else if (selectedList == null) {
+    } else if (selectedList == undefined) {
         return
     } else {
         allLists.forEach(list => {
@@ -50,15 +50,32 @@ function render() {
     let listHTML = "";
     allLists.forEach(list => {
         listHTML += `
-            <div id="${list.listID}" class="eachList" onclick="selectList(${list.listID})">
-                <div class="listName">${list.listName}</div>
-                <div class="trashCan" onclick="">
+            <div id="${list.listID}" class="eachList" style="display:flex">
+                <div class="listNameDiv" onclick="selectList(${list.listID})">
+                    <div class="listName">${list.listName}</div>
+                </div>
+                <div class="trashCanList" onclick="deleteList(event)">
                     <i class="fas fa-trash-alt"></i>
                 </div>
             </div>
         `
     });
     document.getElementById("listOfLists").innerHTML = listHTML;
+}
+
+function deleteList(event) {
+    event.preventDefault();
+    let node = event.target;
+    let listNode = node.parentNode.parentNode;
+    allLists.forEach(list => {
+        if (listNode.id == list.listID){
+            let listIndex = allLists.indexOf(list);
+            allLists.splice(listIndex, 1)
+        }
+    })
+    selectedList = undefined;
+    localStorageSave();
+    render();
 }
 
 function taskRender(id) {
