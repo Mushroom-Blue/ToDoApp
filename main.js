@@ -2,6 +2,11 @@ let allLists = [];
 let selectedList;
 let editTaskID;
 
+const animateTaskDlt = {
+    marginLeft : "100vw", 
+    opacity : 0,
+}
+
 function randomID() {
     return (Math.random() + Math.random()) * 1000;
 }
@@ -144,6 +149,7 @@ function deleteTask(event) {
                 }
             })
             localStorageSave();
+            taskNode.animate(animateTaskDlt, 1000, () => taskNode.remove());
             taskRender(list.listID);
         }
     })

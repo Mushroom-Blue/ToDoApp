@@ -52,6 +52,7 @@ body {
 
 .activeList {
   background-color: lightblue;
+  padding: 15px;
 }
 
 .taskContainer {
