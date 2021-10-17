@@ -71,7 +71,7 @@ function taskRender(id) {
                         <div id="${task.taskID}" class="eachList completeTask">
                             <div class="completeCircleFilled" onclick="toggleComplete(event)"></div>
                             <div class="listName">${task.taskName}</div>
-                            <div class="trashCan" onclick="">
+                            <div class="trashCan" onclick="deleteTask(event)">
                                 <i class="fas fa-trash-alt"></i>
                             </div>
                         </div>
@@ -81,7 +81,7 @@ function taskRender(id) {
                         <div id="${task.taskID}" class="eachList">
                             <div class="completeCircle" onclick="toggleComplete(event)"></div>
                             <div class="listName">${task.taskName}</div>
-                            <div class="trashCan" onclick="">
+                            <div class="trashCan" onclick="deleteTask(event)">
                                 <i class="fas fa-trash-alt"></i>
                             </div>
                         </div>
@@ -91,6 +91,23 @@ function taskRender(id) {
         }
     });
     document.getElementById("listOfTasks").innerHTML = taskHTML;
+}
+
+function deleteTask(event) {
+    let node = event.target;
+    let taskNode = node.parentNode.parentNode;
+    allLists.forEach(list => {
+        if(selectedList.id == list.listID){
+            list.taskList.forEach(task => {
+                if (task.taskID == taskNode.id) {
+                    let taskIndex = list.taskList.indexOf(task);
+                    list.taskList.splice(taskIndex, 1);
+                }
+            })
+            localStorageSave();
+            taskRender(list.listID);
+        }
+    })
 }
 
 function toggleComplete(event) {
